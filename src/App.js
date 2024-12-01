@@ -9,14 +9,24 @@ import { showNotification as show, checkWin } from './helpers/helpers';
 
 import './App.css';
 
-const words = ['application', 'programming', 'interface', 'wizard'];
+const words = ['computer', 'keyboard', 'software', 'developer', 'algorithm', 'database', 'javascript', 'network', 'encryption', 'interface', 'framework', 'infrastructure', 'authentication', 'firewall', 'cybersecurity', 'backup', 'hardware', 'cloud', 'debugging', 'technology', 'mobile', 'python', 'application', 'programming', 'interface', 'wizard', 'engineer', 'cryptography', 'multimedia', 'operating', 'system', 'compiler', 'dashboard', 'domain', 'artificial', 'intelligence', 'penetration', 'testing', 'performance', 'version', 'mobile', 'compatibility', 'virtualization', 'efficiency', 'automation', 'browser', 'rendering', 'animation', 'simulation', 'innovation'];
 let selectedWord = words[Math.floor(Math.random() * words.length)];
+
 
 function App() {
   const [playable, setPlayable] = useState(true);
   const [correctLetters, setCorrectLetters] = useState([]);
   const [wrongLetters, setWrongLetters] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch('https://random-word-api.herokuapp.com/word?length=10')
+      .then(response => response.json())
+      .then(json => setData(json))
+      .catch(error => console.error(error));
+  }, []);
+  console.log(data[0])
 
   useEffect(() => {
     const handleKeydown = event => {
